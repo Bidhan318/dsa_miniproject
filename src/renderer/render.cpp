@@ -47,16 +47,36 @@ void Renderer::drawMaze(const Maze& maze) {
     }
 }
 
+void Renderer::drawVisited(const Maze& maze, const std::vector<Position>& visited) {
+    int cs = cellSize_;
+    Color c = { 50, 130, 200, 160 };
+    for (const auto& pos : visited)
+        DrawRectangle(px(pos.second) + 1, py(pos.first) + 1, cs - 2, cs - 2, c);
+}
+
+void Renderer::drawPath(const Maze& maze, const std::vector<Position>& path) {
+    int cs = cellSize_;
+    Color c = { 255, 220, 0, 220 };
+    for (const auto& pos : path)
+        DrawRectangle(px(pos.second) + 2, py(pos.first) + 2, cs - 4, cs - 4, c);
+}
+
 void Renderer::drawStartEnd(const Maze& maze) {
     int cs = cellSize_;
+    DrawRectangle(px(maze.startCol) + 2, py(maze.startRow) + 2, cs - 4, cs - 4, GREEN);
+    DrawRectangle(px(maze.endCol)   + 2, py(maze.endRow)   + 2, cs - 4, cs - 4, RED);
+}
 
-    // Start — green
-    int sx = offsetX_ + maze.startCol * cs + 2;
-    int sy = offsetY_ + maze.startRow * cs + 2;
-    DrawRectangle(sx, sy, cs - 4, cs - 4, GREEN);
+void Renderer::drawUI(SolverState state) {
+    DrawText("R - New maze",        10, 10, 16, GRAY);
+    DrawText("1 - BFS pathfinding", 10, 30, 16, GRAY);
 
-    // End — red
-    int ex = offsetX_ + maze.endCol * cs + 2;
-    int ey = offsetY_ + maze.endRow * cs + 2;
-    DrawRectangle(ex, ey, cs - 4, cs - 4, RED);
+    const char* msg = "";
+    Color col = GRAY;
+    if      (state == SolverState::IDLE)      { msg = "Press 1 to start BFS"; col = LIGHTGRAY; }
+    else if (state == SolverState::SEARCHING) { msg = "BFS searching...";      col = SKYBLUE;   }
+    else if (state == SolverState::DONE)      { msg = "Path found!";           col = YELLOW;    }
+    else if (state == SolverState::NO_PATH)   { msg = "No path found.";        col = RED;       }
+
+    DrawText(msg, 10, GetScreenHeight() - 28, 18, col);
 }

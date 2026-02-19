@@ -14,7 +14,7 @@
                 "args": [
                     "RAYLIB_PATH=D:/raylib/raylib",
                     "PROJECT_NAME=main",
-                    "OBJS=src/*.cpp src/maze/*.cpp src/renderer/*.cpp src/ui/*.cpp",
+                    "OBJS=src/*.cpp src/maze/*.cpp src/renderer/*.cpp src/ui/*.cpp src/algorithm/*.cpp",
                     "BUILD_MODE=DEBUG"
                 ]
             },
@@ -36,7 +36,7 @@
                 "args": [
                     "RAYLIB_PATH=D:/raylib/raylib",
                     "PROJECT_NAME=main",
-                    "OBJS=src/*.cpp src/maze/*.cpp src/renderer/*.cpp src/ui/*.cpp"
+                    "OBJS=src/*.cpp src/maze/*.cpp src/renderer/*.cpp src/ui/*.cpp src/algorithm/*.cpp"
                 ]
             },
             "problemMatcher": ["$gcc"],
